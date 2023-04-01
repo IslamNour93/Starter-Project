@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ListController: UIViewController {
     
@@ -16,6 +17,7 @@ class ListController: UIViewController {
     //MARK: - Properties
     
     private var viewModel:ListViewModelType
+    var baseModel = [BaseModel]()
     
     // MARK: - LifeCycle
     
@@ -31,29 +33,72 @@ class ListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupDelegates()
+        setupCollectionView()
+        fetchAllPhotos()
+        bindPhotosData()
     }
     
     //MARK: - private functions
     
-    private func setupDelegates(){
+    private func setupCollectionView(){
         photosListCollection.delegate = self
         photosListCollection.dataSource = self
         photosListCollection.register(ImagesViewCell.uiNib(), forCellWithReuseIdentifier: ImagesViewCell.identifier)
     }
-
 }
 
-extension ListController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+//MARK: - FetchAllPhotos
+extension ListController{
+
+    private func fetchAllPhotos(){
+        viewModel.fetchAllPhotos()
+    }
+}
+
+//MARK: - bindPhotosData
+
+extension ListController{
+    
+    private func bindPhotosData(){
+        viewModel.bindToRelaodTableView {[weak self] in
+            DispatchQueue.main.async {
+                
+                guard let self = self else {return}
+                
+                self.photosListCollection.reloadData()
+            }
+        
+        }
+    }
+}
+
+extension ListController:UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        
+        return viewModel.getNumberOfPhotosCells()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImagesViewCell.identifier, for: indexPath) as! ImagesViewCell
         
+        guard let photoUrl = viewModel.getPhotoItemCell(indexPath: indexPath) else {fatalError()}
+        cell.ConfigureImageView(url: photoUrl)
         return cell
     }
     
+}
+
+extension ListController:UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let photo = viewModel.getPhotoItemCell(indexPath: indexPath)
+        
+        
+    }
+}
+
+extension ListController:UICollectionViewDelegateFlowLayout{
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return  CGSize(width: (collectionView.frame.size.width - 10) / 2, height: (collectionView.frame.size.width - 10) / 2)
+    }
 }

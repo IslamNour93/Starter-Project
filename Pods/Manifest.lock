@@ -1,0 +1,29 @@
+PODS:
+  - Alamofire (5.6.4)
+  - Keys (1.0.1)
+  - SDWebImage (5.15.2):
+    - SDWebImage/Core (= 5.15.2)
+  - SDWebImage/Core (5.15.2)
+
+DEPENDENCIES:
+  - Alamofire
+  - Keys (from `Pods/CocoaPodsKeys`)
+  - SDWebImage (~> 5.0)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - SDWebImage
+
+EXTERNAL SOURCES:
+  Keys:
+    :path: Pods/CocoaPodsKeys
+
+SPEC CHECKSUMS:
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  Keys: a576f4c9c1c641ca913a959a9c62ed3f215a8de9
+  SDWebImage: 8ab87d4b3e5cc4927bd47f78db6ceb0b94442577
+
+PODFILE CHECKSUM: c306b909210c8f4d506af2bc54c050abef4a4492
+
+COCOAPODS: 1.11.3

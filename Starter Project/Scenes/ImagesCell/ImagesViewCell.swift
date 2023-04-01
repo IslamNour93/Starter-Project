@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ImagesViewCell: UICollectionViewCell {
     
@@ -29,6 +30,13 @@ class ImagesViewCell: UICollectionViewCell {
     
     static func uiNib()->UINib{
         return UINib(nibName: identifier, bundle: nil)
+    }
+    
+    
+    func ConfigureImageView(url: String) {
+
+         photosImageView.sd_setImage(with: URL(string: url))
+        
     }
 
 }
