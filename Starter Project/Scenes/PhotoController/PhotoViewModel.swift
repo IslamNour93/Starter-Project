@@ -6,3 +6,20 @@
 //
 
 import Foundation
+
+class PhotoViewModel{
+    
+    let baseModel: BaseModel
+    
+    init(baseModel: BaseModel) {
+        self.baseModel = baseModel
+    }
+    
+}
+
+extension PhotoViewModel:PhotoViewModelType{
+    func getImageUrl() -> String {
+        guard let imageurl = baseModel.urls?.full else {return ""}
+        return imageurl
+    }
+}

@@ -8,6 +8,13 @@
 import Foundation
 
 
+typealias PhotoViewModelType = PhotoViewModelInput & PhotoViewModelOutput
+
 protocol PhotoViewModelInput{
     
+}
+
+protocol PhotoViewModelOutput{
+    
+    func getImageUrl()->String
 }

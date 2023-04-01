@@ -35,6 +35,11 @@ extension ListViewModel{
         return baseModel[indexPath.row].urls?.full
     }
     
+    func getSignleModel(indexPath: IndexPath)-> BaseModel{
+        return baseModel[indexPath.row]
+    }
+        
+    
     func getNumberOfPhotosCells() -> Int {
         return baseModel.count
     }

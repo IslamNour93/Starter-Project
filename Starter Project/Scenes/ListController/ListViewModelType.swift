@@ -19,6 +19,7 @@ protocol ListViewModelOutput{
     func bindToErrorService(error: @escaping (Error) -> Void)
     func bindToRelaodTableView(action: @escaping () -> Void)
     func getPhotoItemCell(indexPath: IndexPath)-> String?
+    func getSignleModel(indexPath: IndexPath)-> BaseModel
     func getNumberOfPhotosCells() -> Int
     func fetchAllPhotos()
 }

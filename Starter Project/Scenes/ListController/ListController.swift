@@ -36,6 +36,7 @@ class ListController: UIViewController {
         setupCollectionView()
         fetchAllPhotos()
         bindPhotosData()
+        bindToErrorService()
     }
     
     //MARK: - private functions
@@ -72,6 +73,20 @@ extension ListController{
     }
 }
 
+//MARK: - bindToErrorService
+
+extension ListController{
+    private func bindToErrorService(){
+        viewModel.bindToErrorService { [weak self] error in
+            guard let self = self else {return}
+            
+            self.showAlertError(title: "Error !!!", message: error.localizedDescription)
+        }
+    }
+}
+
+//MARK: - UICollectionViewDataSource
+
 extension ListController:UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -88,13 +103,20 @@ extension ListController:UICollectionViewDataSource{
     
 }
 
+//MARK: - UICollectionViewDelegate
+
 extension ListController:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let photo = viewModel.getPhotoItemCell(indexPath: indexPath)
+        let baseModel = viewModel.getSignleModel(indexPath: indexPath)
+        let viewModel = PhotoViewModel(baseModel: baseModel)
+        let photoController = PhotoController(viewModel: viewModel)
         
+        navigationController?.pushViewController(photoController, animated: false)
         
     }
 }
+
+//MARK: - ListCollectionViewDelegateFlowLayout
 
 extension ListController:UICollectionViewDelegateFlowLayout{
     
