@@ -17,7 +17,7 @@ class ListController: UIViewController {
     //MARK: - Properties
     
     private var viewModel:ListViewModelType
-    var baseModel = [BaseModel]()
+    var baseModelArray = [BaseModel]()
     
     // MARK: - LifeCycle
     

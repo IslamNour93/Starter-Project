@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ListViewModel:ListViewModelType{
+class ListViewModel{
     
     
     
@@ -22,7 +22,8 @@ class ListViewModel:ListViewModelType{
     }
 }
 
-extension ListViewModel{
+extension ListViewModel:ListViewModelType{
+    
     func bindToErrorService(error: @escaping (Error) -> Void) {
         self.errorService = error
     }
